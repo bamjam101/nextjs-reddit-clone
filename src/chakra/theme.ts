@@ -4,6 +4,8 @@ import "@fontsource/open-sans/300.css";
 import "@fontsource/open-sans/400.css";
 import "@fontsource/open-sans/700.css";
 
+import { Button } from "./button";
+
 export const theme = extendTheme({
   colors: {
     brand: {
@@ -20,5 +22,7 @@ export const theme = extendTheme({
       },
     }),
   },
-  components: {},
+  components: {
+    Button,
+  },
 });
