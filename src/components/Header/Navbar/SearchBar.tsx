@@ -2,7 +2,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { Flex, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
 type SearchBarProps = {
-  user?: string;
+  user?: any;
 };
 
 const SearchBar: React.FC<SearchBarProps> = ({ user }) => {
