@@ -8,8 +8,13 @@ import { auth } from "@/firebase/clientApp";
 const Navbar: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
   return (
-    <Flex bg={"white"} height={"44px"} padding={"6px 12px"}>
-      <Flex align={"center"} gap={"0.5rem"}>
+    <Flex
+      bg={"white"}
+      height={"44px"}
+      padding={"6px 12px"}
+      justifyContent={{ md: "space-between" }}
+    >
+      <Flex align={"center"} gap={"0.5rem"} mr={{ base: 0, md: 2 }}>
         <Image
           src="/images/redditFace.svg"
           alt="Reddit Face Icon"
@@ -25,7 +30,7 @@ const Navbar: React.FC = () => {
           }}
         />
       </Flex>
-      {/* <Directory /> */}
+      {user && <Directory />}
       <SearchBar user={user} />
       <RightContent user={user} />
     </Flex>
