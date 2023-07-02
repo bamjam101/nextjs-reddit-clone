@@ -21,6 +21,9 @@ import {
 
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
+import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { auth, firestore } from "@/firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -31,21 +34,69 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   open,
   handleClose,
 }) => {
-  const [communityName, setCommunityName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const [name, setName] = useState("");
   const [charsRemaining, setCharsRemaining] = useState(21);
   const [communityType, setCommunityType] = useState("public");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length > 21) return;
 
-    setCommunityName(event.target.name);
+    setName(event.target.value);
     // recalculating chars remaining for input
     setCharsRemaining(21 - event.target.value.length);
   };
 
   const onCommunityTypeChange = (
     event: React.ChangeEvent<HTMLInputElement>
-  ) => {};
+  ) => {
+    const {
+      target: { name },
+    } = event;
+    if (name === communityType) return;
+    setCommunityType(name);
+  };
+
+  const handleCreateCommunity = async () => {
+    if (error) setError("");
+
+    // Validate the community
+    const format = /[ `!@#$%^&*()+\-=\[\]{};':"\\|,.<>\/?~]/;
+    if (format.test(name) || name.length < 3) {
+      setError(
+        "Community names must be between 3-21 characters, and can only contain letters, numbers or underscores."
+      );
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // Check that name is not taken
+      const communityDocRef = doc(firestore, "communities", name);
+      const communityDoc = await getDoc(communityDocRef);
+
+      if (communityDoc.exists()) {
+        throw new Error(`Sorry, r/${name} is taken. Try another.`);
+      }
+
+      // create community in firestore
+      await setDoc(communityDocRef, {
+        //creatorId, createdAt, numberOfMembers, privacyType
+        creatorId: user?.displayName,
+        createdAt: serverTimestamp(),
+        numberOfMembers: 1,
+        privacyType: communityType,
+      });
+    } catch (error: any) {
+      setError(error?.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <>
       <Modal isOpen={open} onClose={handleClose} size={"lg"}>
@@ -75,7 +126,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               </Text>
               <Text
                 position={"relative"}
-                top={"20px"}
+                top={"28px"}
                 left={"10px"}
                 width={"20px"}
                 color={"gray.400"}
@@ -84,8 +135,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               </Text>
               <Input
                 position={"relative"}
-                top={""}
-                value={communityName}
+                value={name}
+                name={name}
                 size={"sm"}
                 pl="22px"
                 onChange={handleChange}
@@ -96,14 +147,18 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               >
                 {charsRemaining} Characters remaining
               </Text>
+              <Text fontSize={"9pt"} color={"red"} pt={1}>
+                {error}
+              </Text>
               <Box my={4}>
                 <Text fontWeight={600} fontSize={15}>
                   Community Type
                 </Text>
                 <Stack spacing={2}>
                   <Checkbox
+                    colorScheme="blue"
                     name="public"
-                    isChecked={communityName === "public"}
+                    isChecked={communityType === "public"}
                     onChange={onCommunityTypeChange}
                   >
                     <Flex align={"center"}>
@@ -117,8 +172,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                     </Flex>
                   </Checkbox>
                   <Checkbox
+                    colorScheme="blue"
                     name="restricted"
-                    isChecked={communityName === "restricted"}
+                    isChecked={communityType === "restricted"}
                     onChange={onCommunityTypeChange}
                   >
                     <Flex align={"center"}>
@@ -133,8 +189,9 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
                     </Flex>
                   </Checkbox>
                   <Checkbox
+                    colorScheme="blue"
                     name="private"
-                    isChecked={communityName === "private"}
+                    isChecked={communityType === "private"}
                     onChange={onCommunityTypeChange}
                   >
                     <Flex align={"center"}>
@@ -152,7 +209,12 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
             </ModalBody>
           </Box>
 
-          <ModalFooter bg={"gray.100"} borderRadius={"0px 0px 10px 10px"}>
+          <ModalFooter
+            display={"flex"}
+            gap={2}
+            bg={"gray.100"}
+            borderRadius={"0px 0px 10px 10px"}
+          >
             <Button
               variant={"outline"}
               height={"30px"}
@@ -165,7 +227,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               variant={"solid"}
               height={"30px"}
               colorScheme="blue"
-              onClick={() => {}}
+              onClick={handleCreateCommunity}
+              isLoading={loading}
             >
               Create Community
             </Button>
