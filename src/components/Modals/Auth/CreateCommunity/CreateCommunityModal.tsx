@@ -21,7 +21,7 @@ import {
 
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { HiLockClosed } from "react-icons/hi";
-import { doc, getDoc, serverTimestamp, setDoc } from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -75,21 +75,33 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
     try {
       setLoading(true);
 
-      // Check that name is not taken
       const communityDocRef = doc(firestore, "communities", name);
-      const communityDoc = await getDoc(communityDocRef);
 
-      if (communityDoc.exists()) {
-        throw new Error(`Sorry, r/${name} is taken. Try another.`);
-      }
+      await runTransaction(firestore, async (transaction) => {
+        // Check that name is not taken
+        const communityDoc = await transaction.get(communityDocRef);
 
-      // create community in firestore
-      await setDoc(communityDocRef, {
-        //creatorId, createdAt, numberOfMembers, privacyType
-        creatorId: user?.displayName,
-        createdAt: serverTimestamp(),
-        numberOfMembers: 1,
-        privacyType: communityType,
+        if (communityDoc.exists()) {
+          throw new Error(`Sorry, r/${name} is taken. Try another.`);
+        }
+
+        // create community in firestore
+        transaction.set(communityDocRef, {
+          //creatorId, createdAt, numberOfMembers, privacyType
+          creatorId: user?.displayName,
+          createdAt: serverTimestamp(),
+          numberOfMembers: 1,
+          privacyType: communityType,
+        });
+
+        // Join the creator to community, transaction snippet
+        transaction.set(
+          doc(firestore, `users/${user?.uid}/communitySnippets`, name),
+          {
+            communityId: name,
+            isModerator: true,
+          }
+        );
       });
     } catch (error: any) {
       setError(error?.message);
