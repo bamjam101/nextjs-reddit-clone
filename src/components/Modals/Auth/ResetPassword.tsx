@@ -3,7 +3,7 @@ import { useState } from "react";
 import { authModalState } from "@/atoms/authModalAtoms";
 import { useSetRecoilState } from "recoil";
 
-import { Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Input, Text } from "@chakra-ui/react";
 import { useSendPasswordResetEmail } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
 import { FIREBASE_ERRORS } from "@/firebase/errors";
@@ -76,8 +76,7 @@ const ResetPassword: React.FC<ILoginProps> = () => {
               Reset Password
             </Button>
             <Flex fontSize={"9pt"} justifyContent={"center"} mt={1}>
-              <Text
-                position={"relative"}
+              <Box
                 display={"flex"}
                 color={"blue.500"}
                 fontWeight={700}
@@ -99,8 +98,8 @@ const ResetPassword: React.FC<ILoginProps> = () => {
                     opacity: "0.75",
                   }}
                 />
-              </Text>
-              <Text
+              </Box>
+              <Box
                 color={"blue.500"}
                 fontWeight={700}
                 ml={2}
@@ -113,7 +112,7 @@ const ResetPassword: React.FC<ILoginProps> = () => {
                 }
               >
                 Sign Up
-              </Text>
+              </Box>
             </Flex>
           </form>
         </>
