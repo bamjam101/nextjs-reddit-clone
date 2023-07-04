@@ -31,7 +31,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             alt="Selected Image"
           />
           <Stack direction={"row"} mt={4}>
-            <Button height={"28px"} onClick={() => setSelectedFile("Post")}>
+            <Button height={"28px"} onClick={() => setSelectedTab("Post")}>
               Back to Post
             </Button>
             <Button
