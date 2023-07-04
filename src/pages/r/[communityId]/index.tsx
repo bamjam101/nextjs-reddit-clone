@@ -3,6 +3,7 @@ import CreatePostLink from "@/components/Community/CreatePostLink";
 import CommunityNotFound from "@/components/Community/NotFound";
 import CommunityHeader from "@/components/Header/CommunityHeader/CommunityHeader";
 import PageLayout from "@/components/Layout/PageLayout";
+import Posts from "@/components/Posts/Posts";
 import { firestore } from "@/firebase/clientApp";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
@@ -21,6 +22,7 @@ const CommunityPage: React.FC<CommunityPage> = ({ communityData }) => {
       <PageLayout>
         <>
           <CreatePostLink />
+          <Posts communityData={communityData} />
         </>
         <>
           <div>RHS</div>

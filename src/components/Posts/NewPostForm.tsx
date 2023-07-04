@@ -1,6 +1,15 @@
 import { useState } from "react";
 
-import { Flex, Icon } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  CloseButton,
+  Flex,
+  Icon,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
@@ -60,8 +69,10 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
   });
   const [selectedFile, setSelectedFile] = useState<string>("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleCreatePost = async () => {
+    if (error) setError("");
     const { communityId } = router.query;
     // create new post object of type Post
     const newPost: Post = {
@@ -93,13 +104,14 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           imageURL: downloadURL,
         });
       }
+      //redirect the user back to the communityPage when post is published successfully
+      router.back();
     } catch (error: any) {
       console.log("ERROR__HANDLECREATEPOST", error.message);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
-    //redirect the user back to the communityPage using the router
-    router.back();
   };
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -158,6 +170,12 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
           />
         )}
       </Flex>
+      {error && (
+        <Alert status="error">
+          <AlertIcon />
+          <Text>Error occurred while creating post</Text>
+        </Alert>
+      )}
     </Flex>
   );
 };
