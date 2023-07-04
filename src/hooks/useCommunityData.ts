@@ -5,7 +5,7 @@ import {
   CommunitySnippet,
   communityState,
 } from "@/atoms/communityAtom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/clientApp";
 import {
@@ -15,11 +15,15 @@ import {
   increment,
   writeBatch,
 } from "firebase/firestore";
+import { authModalState } from "@/atoms/authModalAtoms";
 
 const useCommunityData = () => {
   const [user] = useAuthState(auth);
+
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
+  const setAuthModalState = useSetRecoilState(authModalState);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -29,7 +33,10 @@ const useCommunityData = () => {
   ) => {
     // Check whether user is signed in
     // if not then open the auth modal instead
-
+    if (!user) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
     if (isJoined) {
       leaveCommunity(communityData.id);
       return;

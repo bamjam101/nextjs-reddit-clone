@@ -1,4 +1,5 @@
 import { Community } from "@/atoms/communityAtom";
+import CreatePostLink from "@/components/Community/CreatePostLink";
 import CommunityNotFound from "@/components/Community/NotFound";
 import CommunityHeader from "@/components/Header/CommunityHeader/CommunityHeader";
 import PageLayout from "@/components/Layout/PageLayout";
@@ -19,7 +20,7 @@ const CommunityPage: React.FC<CommunityPage> = ({ communityData }) => {
       <CommunityHeader communityData={communityData} />;
       <PageLayout>
         <>
-          <div>LHS</div>
+          <CreatePostLink />
         </>
         <>
           <div>RHS</div>
