@@ -1,5 +1,7 @@
 import { Post } from "@/atoms/postsAtom";
 import {
+  Alert,
+  AlertIcon,
   Flex,
   Icon,
   Image,
@@ -44,6 +46,7 @@ const PostItem = ({
   const [error, setError] = useState("");
 
   const handleDelete = async () => {
+    if (error) setError("");
     setLoadingDelete(true);
     try {
       const success = await onDeletePost(post);
@@ -99,7 +102,14 @@ const PostItem = ({
           onClick={onVote}
         />
       </Flex>
+
       <Flex direction={"column"} width={"100%"}>
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <Text>{error}</Text>
+          </Alert>
+        )}
         <Stack spacing={1} p={"10px"}>
           <Stack
             direction={"row"}
