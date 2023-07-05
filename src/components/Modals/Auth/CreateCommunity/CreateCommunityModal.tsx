@@ -88,7 +88,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         // create community in firestore
         transaction.set(communityDocRef, {
           //creatorId, createdAt, numberOfMembers, privacyType
-          creatorId: user?.displayName,
+          creatorId: user?.uid,
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
           privacyType: communityType,

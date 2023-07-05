@@ -62,11 +62,13 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           </Button>
           <input
             type="file"
+            id="file-upload"
+            accept="image/x-png,image/gif,image/jpeg,image/jpg"
             hidden
             ref={selectedFileRef}
             onChange={onSelectImage}
           />
-          <img src={selectedFile} />
+          <Image alt="Community Post Image" src={selectedFile} />
         </Flex>
       )}
     </Flex>
