@@ -4,8 +4,10 @@ import SearchBar from "./SearchBar";
 import RightContent from "./RightContent/RightContent";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
+import { useRouter } from "next/router";
 
 const Navbar: React.FC = () => {
+  const router = useRouter();
   const [user, loading, error] = useAuthState(auth);
   return (
     <Flex
@@ -14,7 +16,13 @@ const Navbar: React.FC = () => {
       padding={"6px 12px"}
       justifyContent={{ md: "space-between" }}
     >
-      <Flex align={"center"} gap={"0.5rem"} mr={{ base: 0, md: 2 }}>
+      <Flex
+        cursor={"pointer"}
+        onClick={() => router.push("/")}
+        align={"center"}
+        gap={"0.5rem"}
+        mr={{ base: 0, md: 2 }}
+      >
         <Image
           src="/images/redditFace.svg"
           alt="Reddit Face Icon"

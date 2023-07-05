@@ -24,6 +24,7 @@ import { HiLockClosed } from "react-icons/hi";
 import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -35,6 +36,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   handleClose,
 }) => {
   const [user] = useAuthState(auth);
+  const router = useRouter();
 
   const [name, setName] = useState("");
   const [charsRemaining, setCharsRemaining] = useState(21);
@@ -103,6 +105,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           }
         );
       });
+      handleClose();
+      router.push(`/r/${name}`);
     } catch (error: any) {
       setError(error?.message);
     } finally {

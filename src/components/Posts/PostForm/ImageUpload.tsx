@@ -68,7 +68,9 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
             ref={selectedFileRef}
             onChange={onSelectImage}
           />
-          <Image alt="Community Post Image" src={selectedFile} />
+          {selectedFile && (
+            <Image alt="Community Post Image" src={selectedFile} />
+          )}
         </Flex>
       )}
     </Flex>
