@@ -25,6 +25,7 @@ import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
+import useDirectory from "@/hooks/useDirectory";
 
 type CreateCommunityModalProps = {
   open: boolean;
@@ -37,6 +38,8 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
 }) => {
   const [user] = useAuthState(auth);
   const router = useRouter();
+
+  const { toggleMenuOpen } = useDirectory();
 
   const [name, setName] = useState("");
   const [charsRemaining, setCharsRemaining] = useState(21);
@@ -106,6 +109,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         );
       });
       handleClose();
+      toggleMenuOpen();
       router.push(`/r/${name}`);
     } catch (error: any) {
       setError(error?.message);

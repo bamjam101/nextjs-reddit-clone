@@ -31,7 +31,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
             onChange={(event) => setCommentText(event.target.value)}
             placeholder="What are your thoughts?"
             fontSize={"10pt"}
-            minHeight={"160px"}
+            minHeight={"150px"}
+            resize={"none"}
             borderRadius={4}
             pb={10}
             _placeholder={{ color: "gray.500" }}
@@ -44,8 +45,9 @@ const CommentInput: React.FC<CommentInputProps> = ({
           <Flex
             position={"absolute"}
             left={"1px"}
-            right={0.1}
+            right={"1px"}
             bottom={"1px"}
+            zIndex={"999"}
             justify={"flex-end"}
             bg={"gray.100"}
             p={"6px 8px"}

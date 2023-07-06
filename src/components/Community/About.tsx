@@ -54,6 +54,7 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           imageURL: downloadURL,
         } as Community,
       }));
+      setSelectedFile("");
     } catch (error: any) {
       console.log("ERROR__ONUPDATEIMAGE", error.message);
     } finally {
