@@ -1,6 +1,5 @@
 import useDirectory from "@/hooks/useDirectory";
 import { Flex, Icon, Image, MenuItem } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import { IconType } from "react-icons/lib";
 
 type MenuListItemProps = {

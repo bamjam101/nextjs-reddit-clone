@@ -1,10 +1,9 @@
 import { Flex, Image } from "@chakra-ui/react";
-import Directory from "./Directory/Directory";
+import Directory from "./directory/Directory";
 import SearchBar from "./SearchBar";
-import RightContent from "./RightContent/RightContent";
+import RightContent from "./right-content/RightContent";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
-import { useRouter } from "next/router";
 import useDirectory from "@/hooks/useDirectory";
 import { defaultMenuItem } from "@/atoms/directoryMenuAtom";
 

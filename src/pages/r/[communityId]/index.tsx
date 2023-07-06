@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 
 import { Community, communityState } from "@/atoms/communityAtom";
-import CreatePostLink from "@/components/Community/CreatePostLink";
-import CommunityNotFound from "@/components/Community/NotFound";
-import CommunityHeader from "@/components/Header/CommunityHeader/CommunityHeader";
-import PageLayout from "@/components/Layout/PageLayout";
-import Posts from "@/components/Posts/Posts";
+import About from "@/components/community/About";
+import CreatePostLink from "@/components/community/CreatePostLink";
+import CommunityNotFound from "@/components/community/NotFound";
+import CommunityHeader from "@/components/header/community-header/CommunityHeader";
+import PageLayout from "@/components/layout/PageLayout";
+import Posts from "@/components/posts/Posts";
 import { firestore } from "@/firebase/clientApp";
 import { doc, getDoc } from "firebase/firestore";
 import { GetServerSidePropsContext } from "next";
-import safeJsonStringify from "safe-json-stringify";
 import { useSetRecoilState } from "recoil";
-import About from "@/components/Community/About";
+import safeJsonStringify from "safe-json-stringify";
 
 type CommunityPage = {
   communityData: Community;

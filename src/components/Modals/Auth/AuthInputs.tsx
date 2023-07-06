@@ -3,6 +3,7 @@ import React from "react";
 import { useRecoilValue } from "recoil";
 import { authModalState } from "@/atoms/authModalAtoms";
 import { Flex } from "@chakra-ui/react";
+
 import Login from "./Login";
 import SignUp from "./SignUp";
 

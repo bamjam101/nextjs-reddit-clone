@@ -1,4 +1,4 @@
-import AuthButtons from "@/components/Header/Navbar/RightContent/AuthButtons";
+import AuthButtons from "@/components/header/page-header/right-content/AuthButtons";
 import { Button, Flex, Text, Textarea } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import React from "react";
@@ -31,7 +31,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
             onChange={(event) => setCommentText(event.target.value)}
             placeholder="What are your thoughts?"
             fontSize={"10pt"}
-            minHeight={"150px"}
+            minHeight={"160px"}
             resize={"none"}
             borderRadius={4}
             pb={10}
@@ -45,9 +45,8 @@ const CommentInput: React.FC<CommentInputProps> = ({
           <Flex
             position={"absolute"}
             left={"1px"}
-            right={"1px"}
+            right={0.1}
             bottom={"1px"}
-            zIndex={"999"}
             justify={"flex-end"}
             bg={"gray.100"}
             p={"6px 8px"}
@@ -55,11 +54,11 @@ const CommentInput: React.FC<CommentInputProps> = ({
           >
             <Button
               height={"26px"}
+              zIndex={"999"}
               disabled={!commentText.length}
               isLoading={createLoading}
               onClick={() => onCreateComment(commentText)}
             >
-              {" "}
               Comment
             </Button>
           </Flex>

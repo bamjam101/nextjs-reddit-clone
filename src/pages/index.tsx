@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import PageLayout from "@/components/Layout/PageLayout";
+import PageLayout from "@/components/layout/PageLayout";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/clientApp";
 import { useEffect, useState } from "react";
@@ -14,14 +14,14 @@ import {
 } from "firebase/firestore";
 import usePosts from "@/hooks/usePosts";
 import { Post, PostVote } from "@/atoms/postsAtom";
-import PostLoader from "@/components/Posts/PostLoader";
+import PostLoader from "@/components/posts/PostLoader";
 import { Stack } from "@chakra-ui/react";
-import CreatePostLink from "@/components/Community/CreatePostLink";
-import PostItem from "@/components/Posts/PostItem";
+import CreatePostLink from "@/components/community/CreatePostLink";
+import PostItem from "@/components/posts/PostItem";
 import useCommunityData from "@/hooks/useCommunityData";
-import Recommendations from "@/components/Community/Recommendations";
-import Premium from "@/components/Community/Premium";
-import PersonalHome from "@/components/Community/PersonalHome";
+import Recommendations from "@/components/community/Recommendations";
+import Premium from "@/components/community/Premium";
+import PersonalHome from "@/components/community/PersonalHome";
 
 const inter = Inter({ subsets: ["latin"] });
 

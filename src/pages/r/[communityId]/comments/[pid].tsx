@@ -1,9 +1,8 @@
-import { communityState } from "@/atoms/communityAtom";
 import { Post } from "@/atoms/postsAtom";
-import About from "@/components/Community/About";
-import PageLayout from "@/components/Layout/PageLayout";
-import Comments from "@/components/Posts/Comments/Comments";
-import PostItem from "@/components/Posts/PostItem";
+import About from "@/components/community/About";
+import PageLayout from "@/components/layout/PageLayout";
+import Comments from "@/components/posts/comments/Comments";
+import PostItem from "@/components/posts/PostItem";
 import { auth, firestore } from "@/firebase/clientApp";
 import useCommunityData from "@/hooks/useCommunityData";
 import usePosts from "@/hooks/usePosts";
@@ -12,7 +11,6 @@ import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilValue } from "recoil";
 
 const PostPage = () => {
   const [user] = useAuthState(auth);

@@ -143,7 +143,6 @@ const useCommunityData = () => {
   };
 
   const getCommunityData = async (communityId: string) => {
-    console.log("running");
     try {
       const communityDocRef = doc(firestore, "communities", communityId);
       const communityDoc = await getDoc(communityDocRef);
@@ -174,7 +173,6 @@ const useCommunityData = () => {
 
   useEffect(() => {
     const { communityId } = router.query;
-    console.log(communityId);
 
     if (communityId && !communityStateValue.currentCommunity) {
       getCommunityData(communityId as string);

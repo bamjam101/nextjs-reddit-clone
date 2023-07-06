@@ -1,7 +1,6 @@
-import { communityState } from "@/atoms/communityAtom";
-import About from "@/components/Community/About";
-import PageLayout from "@/components/Layout/PageLayout";
-import NewPostForm from "@/components/Posts/NewPostForm";
+import About from "@/components/community/About";
+import PageLayout from "@/components/layout/PageLayout";
+import NewPostForm from "@/components/posts/NewPostForm";
 import { auth } from "@/firebase/clientApp";
 import useCommunityData from "@/hooks/useCommunityData";
 import { Box, Text } from "@chakra-ui/react";

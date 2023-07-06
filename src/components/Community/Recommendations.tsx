@@ -22,6 +22,7 @@ const Recommendations = () => {
   const [loading, setLoading] = useState(false);
   const { communityStateValue, onJoinOrLeaveCommunity } = useCommunityData();
   const getCommunityRecommendations = async () => {
+    setLoading(true);
     try {
       const communityQuery = query(
         collection(firestore, "communities"),
@@ -36,6 +37,8 @@ const Recommendations = () => {
       setCommunities(communities as Community[]);
     } catch (error) {
       console.log("ERROR__GETCOMMUNITYRECOMMENDATIONS", error);
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -1,7 +1,6 @@
 import { useRecoilState } from "recoil";
 import { authModalState } from "@/atoms/authModalAtoms";
 import {
-  Button,
   Flex,
   Modal,
   ModalBody,
@@ -11,11 +10,12 @@ import {
   ModalOverlay,
   Text,
 } from "@chakra-ui/react";
-import AuthInputs from "./AuthInputs";
-import OAuthButtons from "./OAuthButtons";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@/firebase/clientApp";
 import { useEffect } from "react";
+import AuthInputs from "./AuthInputs";
+import OAuthButtons from "./OAuthButtons";
 import ResetPassword from "./ResetPassword";
 
 const AuthModal = () => {
