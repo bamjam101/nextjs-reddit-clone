@@ -16,6 +16,7 @@ const Directory: React.FC = () => {
   return (
     <Menu isOpen={directoryState.isOpen}>
       <MenuButton
+        zIndex={"999"}
         cursor={"pointer"}
         padding={"0px 6px"}
         borderRadius={4}
