@@ -19,13 +19,15 @@ import {
   Icon,
 } from "@chakra-ui/react";
 
-import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
-import { HiLockClosed } from "react-icons/hi";
-import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
-import { auth, firestore } from "@/firebase/clientApp";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 import useDirectory from "@/hooks/useDirectory";
+
+import { auth, firestore } from "@/firebase/clientApp";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
+
+import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
+import { HiLockClosed } from "react-icons/hi";
 
 type CreateCommunityModalProps = {
   open: boolean;

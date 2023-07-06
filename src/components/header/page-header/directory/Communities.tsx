@@ -1,12 +1,14 @@
 import { useState } from "react";
-import CreateCommunityModal from "@/components/modals/auth/create-community/CreateCommunityModal";
-import { Box, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
-import React from "react";
-import { GrAdd } from "react-icons/gr";
 import { useRecoilValue } from "recoil";
 import { communityState } from "@/atoms/communityAtom";
-import MenuListItem from "./MenuListItem";
+
+import { Box, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
+
+import { GrAdd } from "react-icons/gr";
 import { FaReddit } from "react-icons/fa";
+
+import MenuListItem from "./MenuListItem";
+import CreateCommunityModal from "@/components/modals/auth/create-community/CreateCommunityModal";
 
 const Communities = () => {
   const [open, setOpen] = useState(false);
