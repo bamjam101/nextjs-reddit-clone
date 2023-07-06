@@ -8,6 +8,7 @@ import { GrAdd } from "react-icons/gr";
 import { FaReddit } from "react-icons/fa";
 
 import MenuListItem from "./MenuListItem";
+// @ts-ignore
 import CreateCommunityModal from "@/components/modals/auth/create-community/CreateCommunityModal";
 
 const Communities = () => {
